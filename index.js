@@ -2,6 +2,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 import cors from 'cors'
+import contactRouter from './routers/contactRoute.js'
 
 const app = express()
 dotenv.config()
@@ -9,7 +10,7 @@ dotenv.config()
 const connect = async () => {
     try {
       await mongoose.connect(process.env.MONGO_URL);
-      console.log("Connrcted to mongodb");
+      console.log("Connected to mongodb");
     } catch (error) {
       throw error;
     }
@@ -25,6 +26,8 @@ const connect = async () => {
   app.get('/',(req,res,next)=> {
     res.send("Welcome")
   })
+
+  app.use("/api", contactRouter)
 
 
 app.use(express())
